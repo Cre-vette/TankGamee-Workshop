@@ -5,11 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Spin : MonoBehaviour
 {
-     private float mouseMove;
+     private float move;
     
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
     void Update()
@@ -23,12 +23,14 @@ public class Spin : MonoBehaviour
         }
         */
 
-        transform.Rotate(Vector3.up, mouseMove * Time.deltaTime);
+        transform.Rotate(Vector3.up, move * Time.deltaTime);
 
     }
 
     public void Tourner(InputAction.CallbackContext context)
     {
-        mouseMove = context.ReadValue<float>();
+        move = context.ReadValue<float>();
+
+        Debug.Log("tourner : " + move);
     }
 }

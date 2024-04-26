@@ -14,6 +14,7 @@ public class MoveTank : MonoBehaviour
     private Rigidbody rb;
     private float moveInput;
     private float rotationInput;
+    //private bool isInContact;
 
     void Start()
     {
@@ -40,7 +41,8 @@ public class MoveTank : MonoBehaviour
 
     void MoveTankObj(float input){
         Vector3 moveDirection = transform.forward * input * moveSpeed * Time.fixedDeltaTime;
-        rb.MovePosition(rb.position + moveDirection);
+        //rb.MovePosition(rb.position + moveDirection);
+        rb.velocity = moveDirection;
     }
 
     void RotateTank(float input){
@@ -68,5 +70,6 @@ public class MoveTank : MonoBehaviour
 
     }
 
+    
 
 }

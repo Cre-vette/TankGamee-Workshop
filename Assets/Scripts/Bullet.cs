@@ -1,35 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bullet : MonoBehaviour
 {
-    public float launchSpeed = 75.0f;
-    public GameObject objectPrefab;
-    void Start()
+    public float timeRemaining = 2;
+    void OnCollisionEnter(Collision collision)
     {
-        
-    }
+        // Vérifie si la collision est avec une cible
+        if (collision.gameObject.CompareTag("Cible"))
+        {
+            // Trouve le ScoreManager dans la scène
+            ScoreManager scoreManager = Object.FindFirstObjectByType<ScoreManager>();
 
-   
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.E)){
-            SpawnObject();
+            // Vérifie si le ScoreManager a été trouvé
+            if (scoreManager != null)
+            {
+                // Appelle la méthode OnBulletHitTarget() du ScoreManager pour augmenter le score
+                scoreManager.OnBulletHitTarget();
+            }
+
+            Destroy(gameObject); // Détruit la balle
         }
     }
 
-    void SpawnObject(){
-        Vector3 spawnPosition = transform.position;
-        Quaternion spawnRotation = Quaternion.identity;
-
-        Vector3 localXDirection = transform.TransformDirection(Vector3.forward);
-        Vector3 velocity = localXDirection * launchSpeed;
-        //Instantiate Object
-        GameObject newObject = Instantiate(objectPrefab, spawnPosition, spawnRotation);
-
-        Rigidbody rb = newObject.GetComponent<Rigidbody>();
-        rb.velocity = velocity;
-
+    // Méthode appelée à chaque frame
+    void Update()
+    {
+        // Réduit le temps restant
+        if (timeRemaining > 0)
+        {
+            timeRemaining -= Time.deltaTime;
+        }
+        else
+        {
+            Object.Destroy(this.gameObject);
+        }
     }
 }

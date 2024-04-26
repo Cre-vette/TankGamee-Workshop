@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - "D\xE9cors"
+  - Bullet
+  - Cible
   layers:
   - Default
   - TransparentFX
